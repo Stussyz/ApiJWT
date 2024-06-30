@@ -106,6 +106,7 @@ className='alert'
         </Form.Item>
         <Form.Item>
 {/* btn sign in */}
+          {/* linked to /login */}
           <Link to="/login">
           <Button size="large" className="btn">Sign In</Button>
           </Link>

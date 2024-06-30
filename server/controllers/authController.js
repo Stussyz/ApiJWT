@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const createError = require('../utils/appError');
 
 // REGISTER USER
+// Middleware dengan async function yang akan menangani apabila terjadi duplikasi data (email) yang akan didaftarkan
 exports.signup = async (req, res, next) => {
  try {
     const user = await User.findOne({ email: req.body.email });
@@ -18,11 +19,12 @@ exports.signup = async (req, res, next) => {
     password: hashedPassword,
     });
 
-// ASSIGN JSON WEB TOKEN
+// JSON WEB TOKEN
+// Pembuatan JSON Web Token. payload yang disimpan '_id' token akan expired dalam 90 hari
     const token = jwt.sign({_id: newUser._id }, 'secretkey123', {
         expiresIn: '90d',
     });
-    
+// Apabila sukses maka akan menampilkan response (201), dengan menampilkan beberapa data inputan user 
     res.status(201).json({
         status: 'success',
         message: 'User registered successfully',
@@ -34,7 +36,7 @@ exports.signup = async (req, res, next) => {
             role: newUser.role,
         },
     });
-    
+// apabila terjadi error maka akan dilempar ke middleware error
     } catch (error) {
         next(error);
     }

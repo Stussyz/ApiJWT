@@ -1,11 +1,13 @@
 import React from 'react'
 import { Alert, Button, Card, Flex, Form, Input, Spin, Typography } from 'antd';
 import { Link } from 'react-router-dom';
+import useLogin from '../hooks/useLogin';
 import loginImg from '../assets/signup5.jpg';
 
 const Login = () => {
+  const {error, loading, loginUser} = useLogin();
   const handleLogin = async (values) => {
-    console.log(values);
+    await loginUser(values);
   };
   return (
     <Card className="form-container">
@@ -22,7 +24,7 @@ const Login = () => {
         </Typography.Title>
 
         <Typography.Text type="secondary" strong className="slogan">
-        Unlock your access!
+        Welcome to Library Drive Thru!
         </Typography.Text>
 
        <Form layout="vertical" onFinish={handleLogin} autoComplete="off">
@@ -59,28 +61,33 @@ const Login = () => {
           <Input.Password size="large" placeholder="Enter your Password" />
         </Form.Item>
 
-{/* error alert
-{error && <Alert description={error} 
+{error && (
+<Alert 
+description={error} 
 type='error' 
 showIcon 
 closable 
-className='alert' />} */}
+className='alert' 
+/>
+)}
 
 {/* btn create account */}
         <Form.Item>
           <Button 
-          // type={`${loading ? '' : 'primary'}`}
+          type={`${loading ? '' : 'primary'}`}
           htmlType="submit" 
           size="large" 
-          className="btn">
-            {/* {loading ? <Spin /> : 'Create Account'} */}
-          Sign In
+          className="btn"
+          >
+          
+          {loading ? <Spin /> : 'Sign In'}
+          
           </Button>
         </Form.Item>
         <Form.Item>
 
-{/* btn sign in */}
-          <Link to="/">
+{/* btn signup */}
+          <Link to="/register">
           <Button 
           size="large" 
           className="btn">

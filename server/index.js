@@ -11,7 +11,6 @@ app.use(express.json());
 // 2) ROUTE
 app.use('/api/auth', authRouter);
 
-
 // 3) MONGODB CONNECTION
 mongoose
 .connect('mongodb://127.0.0.1:27017/authentication')
@@ -28,7 +27,6 @@ app.use((err, req, res, next) => {
         message: err.message,
     });
 });
-
 
 // 5) SERVER
 const PORT = 3000;
